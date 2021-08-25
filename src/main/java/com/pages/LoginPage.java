@@ -16,7 +16,7 @@ public class LoginPage extends BasePage {
     public void login() {
         clickOnWebElementWithText("Account");
         clickOnWebElementWithText("Log In");
-        typeInInputWithTitle("Email Address", EnvironmentConstants.EMAIL);
+        typeInInputWithTitle("Email Address", EnvironmentConstants.USER_NAME);
         typeInInputWithTitle("Password", EnvironmentConstants.PASS);
         clickOnWebElementWithText("Login");
     }

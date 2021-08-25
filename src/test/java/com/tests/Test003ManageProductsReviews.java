@@ -20,9 +20,10 @@ public class Test003ManageProductsReviews extends BaseTest {
 
     @Test
     public void test003ManageProductsReviews() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        productFlowSteps.addProductReview("Chelsea Tee", reviewSummary);
+        productFlowSteps.addProductReview("AVIATOR SUNGLASSES", reviewSummary);
         //TODO approve the review from magento admin if that's the only way to make it visible under the product
-        //...
+        loginAdminSteps.loginAsAdmin();
+
         productDetailsSteps.verifyProductReview(reviewSummary);
     }
 

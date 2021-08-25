@@ -27,6 +27,15 @@ public class ProductDetailsSteps extends AbstractSteps {
         product.setPrice(productDetailsPage.getPrice());
         return product;
     }
+//    public Product getProductReviewDetails() {
+//        ProductReview productReview = new ProductReview();
+//        productReview.setNickname();
+//        productReview.setSummary();
+//        productReview.setThoughts();
+//        productReview.setCriteria();
+//        productReview.setNrStars();
+//        return productReview;
+//    }
 
     @Step
     public void addProductToCart(int quantity) {
@@ -48,9 +57,12 @@ public class ProductDetailsSteps extends AbstractSteps {
     }
 
     @Step
-    public void addProductReview(String summary) {
-        ProductReview productReview = ProductReviewFactory.getProductReviewInstance(productDetailsPage.getProductName());
+    public void addProductReview(ProductReview productReview) {
+      //  ProductReview productReview = ProductReviewFactory.getProductReviewInstance(productDetailsPage.getProductName());
         //TODO complete the fields with data from productReview
+        productDetailsPage.clickOnAddAReviewLink();
+        productDetailsPage.setReviewCriteriaRows();
+        productDetailsPage.fillReviewDetails(productReview);
         productReviewDao.saveProductReview(productReview);
     }
 

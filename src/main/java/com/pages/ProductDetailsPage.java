@@ -1,10 +1,22 @@
 package com.pages;
 
+import com.models.ProductReview;
+import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+import java.util.Random;
 
 public class ProductDetailsPage extends BasePage {
+
+    @FindBy(css = "#product-review-table tbody tr")
+    private List<WebElement> reviewCriteriaRows;
+
+    @FindBy(css = "a[href*='review-form'")
+    private WebElementFacade addAReviewLink;
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
@@ -29,4 +41,30 @@ public class ProductDetailsPage extends BasePage {
         clickOn(sizeElement);
         return sizeElement.getAttribute("title");
     }
+
+    public void fillReviewDetails(ProductReview productReview){
+        typeInInputWithName("detail", productReview.getThoughts());
+        typeInInputWithId("nickname_field", productReview.getNickname());
+        typeInInputWithId("summary_field", productReview.getSummary());
+        setReviewRating(productReview.getCriteria(),productReview.getNrStars());
+    }
+    public void setReviewRating(String criteria, int nrStars) {
+        for (WebElement criteriaRow : reviewCriteriaRows) {
+            if (criteriaRow.findElement(By.cssSelector("th")).getText().equalsIgnoreCase(criteria)) {
+                criteriaRow.findElement(By.cssSelector("input[id*='" + nrStars + "']")).click();
+                break;
+            }
+        }
+    }
+    public void clickOnAddAReviewLink() {
+        clickOn(addAReviewLink);
+    }
+
+    public void setReviewCriteriaRows(){
+        Random random = new Random();
+       setReviewRating("QUALITY", random.nextInt(5) + 1);
+       setReviewRating("PRICE", random.nextInt(5) + 1);
+       setReviewRating("VALUE", random.nextInt(5) + 1);
+    }
+
 }

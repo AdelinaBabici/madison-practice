@@ -1,5 +1,6 @@
 package com.steps.flowsteps;
 
+import com.tools.factories.ProductReviewFactory;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
@@ -35,6 +36,11 @@ public class ProductFlowSteps extends AbstractSteps {
     public void addProductReview(String productName, String reviewSummary) {
         headerSteps.searchForProduct(productName);
         productsSteps.openProductsDetailsPage(productName);
-        productDetailsSteps.addProductReview(reviewSummary);
+        productDetailsSteps.addProductReview(ProductReviewFactory.getProductReviewInstance());
     }
+    @Step
+    public void approveProductReviewAsAdmin(){
+
+    }
+
 }
