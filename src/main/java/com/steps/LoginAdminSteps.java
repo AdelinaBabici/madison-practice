@@ -10,11 +10,15 @@ public class LoginAdminSteps extends AbstractSteps{
 
     @Step
     public void navigateToAdminLoginPage(){
-        loginAdminPage.getDriver().get(EnvironmentConstants.ADMIN_URL);
+        loginAdminPage.navigateToAdminLoginPage();
     }
 
     @Step
     public void loginAsAdmin(){
+
         loginAdminPage.loginAsAdmin();
+        loginAdminPage.closePopupMessage();
     }
+
+
 }

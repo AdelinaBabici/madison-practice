@@ -7,6 +7,8 @@ public class ProductReview {
     private String criteria;
     private int nrStars;
 
+    public ProductReview() {
+    }
 
     public String getSummary() {
         return summary;

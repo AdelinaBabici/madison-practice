@@ -1,5 +1,6 @@
 package com.steps;
 
+import com.tools.utils.SerenitySessionUtils;
 import net.thucydides.core.annotations.Step;
 
 import com.dao.product.ProductAbstractDao;
@@ -10,6 +11,7 @@ import com.models.ProductReview;
 import com.pages.ProductDetailsPage;
 import com.tools.constants.SerenityKeyConstants;
 import com.tools.factories.ProductReviewFactory;
+import org.junit.Assert;
 
 public class ProductDetailsSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
@@ -27,15 +29,7 @@ public class ProductDetailsSteps extends AbstractSteps {
         product.setPrice(productDetailsPage.getPrice());
         return product;
     }
-//    public Product getProductReviewDetails() {
-//        ProductReview productReview = new ProductReview();
-//        productReview.setNickname();
-//        productReview.setSummary();
-//        productReview.setThoughts();
-//        productReview.setCriteria();
-//        productReview.setNrStars();
-//        return productReview;
-//    }
+
 
     @Step
     public void addProductToCart(int quantity) {
@@ -55,6 +49,10 @@ public class ProductDetailsSteps extends AbstractSteps {
         productDetailsPage.clickOnWebElementWithText("Add to Wishlist");
         productDao.saveProduct(SerenityKeyConstants.WISHLIST_PRODUCTS_LIST, product);
     }
+    @Step
+    public void clickOnAddAReviewLink(){
+        productDetailsPage.clickOnAddAReviewLink();
+    }
 
     @Step
     public void addProductReview(ProductReview productReview) {
@@ -68,6 +66,18 @@ public class ProductDetailsSteps extends AbstractSteps {
 
     @Step
     public void verifyProductReview(String summary) {
-        //Product review  productReviewDao.getProductReviewBySummary()....
+      //  Product review  productReviewDao.getProductReviewBySummary()
+
+       ProductReview expectedReview = productReviewDao.getReviewBySummary(summary);
+       ProductReview actualReview = page.getReviewDetails(summary);
+        System.out.println("Expected review is: " + expectedReview.toString());
+        System.out.println("Actual review is: " + actualReview.toString());
+        Assert.assertTrue("Review is not as expected!", expectedReview.equals(actualReview));
+
     }
+    @Step
+    public void clickOnSubmitReviewButton() {
+        productDetailsPage.clickOnSubmitReviewBtn();
+    }
+
 }

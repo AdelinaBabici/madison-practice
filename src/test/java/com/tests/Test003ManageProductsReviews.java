@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(SerenityRunner.class)
 public class Test003ManageProductsReviews extends BaseTest {
-    private String reviewSummary = RandomString.make(10);
+
 
     @Before
     public void dataPrep() {
@@ -20,10 +20,17 @@ public class Test003ManageProductsReviews extends BaseTest {
 
     @Test
     public void test003ManageProductsReviews() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        productFlowSteps.addProductReview("AVIATOR SUNGLASSES", reviewSummary);
-        //TODO approve the review from magento admin if that's the only way to make it visible under the product
+        productFlowSteps.navigateToProductDetailsPage("AVIATOR SUNGLASSES");
+        productFlowSteps.addProductReview();
+       //TODO approve the review from magento admin if that's the only way to make it visible under the product
+        loginAdminSteps.navigateToAdminLoginPage();
         loginAdminSteps.loginAsAdmin();
+        reviewSteps.navigateThroughCategories("Catalog", "Reviews and Ratings", "Customer Reviews", "Pending Reviews");
+        reviewSteps.approveReviewAsAdmin("AVIATOR SUNGLASSES", "Approved");
 
+        setup();
+        productFlowSteps.navigateToProductDetailsPage("AVIATOR SUNGLASSES");
+        productDetailsSteps.clickOnAddAReviewLink();
         productDetailsSteps.verifyProductReview(reviewSummary);
     }
 

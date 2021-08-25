@@ -9,9 +9,15 @@ public class LoginAdminPage extends BasePage{
 
     @FindBy(css = "input[value='Login']")
     private WebElementFacade loginButton;
+    @FindBy(css = "#message-popup-window > div.message-popup-head > a")
+    private WebElementFacade popupMessage;
 
     public LoginAdminPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void navigateToAdminLoginPage(){
+       getDriver().get(EnvironmentConstants.ADMIN_URL);
     }
 
     public void loginAsAdmin(){
@@ -21,5 +27,9 @@ public class LoginAdminPage extends BasePage{
     }
     public void clickLoginButton() {
         clickOn(loginButton);
+    }
+
+    public void closePopupMessage(){
+        clickOn(popupMessage);
     }
 }

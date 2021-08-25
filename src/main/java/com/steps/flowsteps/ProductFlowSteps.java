@@ -33,14 +33,14 @@ public class ProductFlowSteps extends AbstractSteps {
     }
 
     @Step
-    public void addProductReview(String productName, String reviewSummary) {
-        headerSteps.searchForProduct(productName);
-        productsSteps.openProductsDetailsPage(productName);
+    public void addProductReview() {
         productDetailsSteps.addProductReview(ProductReviewFactory.getProductReviewInstance());
+        productDetailsSteps.clickOnSubmitReviewButton();
     }
     @Step
-    public void approveProductReviewAsAdmin(){
-
+    public void navigateToProductDetailsPage(String productName){
+        headerSteps.searchForProduct(productName);
+        productsSteps.openProductsDetailsPage(productName);
     }
 
 }

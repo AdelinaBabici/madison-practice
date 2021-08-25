@@ -1,5 +1,6 @@
 package com.pages;
 
+import com.models.Product;
 import com.models.ProductReview;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -18,9 +19,14 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(css = "a[href*='review-form'")
     private WebElementFacade addAReviewLink;
 
+    @FindBy(css = "button[title='Submit Review'")
+    private WebElementFacade submitReviewButton;
+
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
     }
+
+
 
     public String getProductName() {
         return getDriver().findElement(By.cssSelector(".product-name span")).getText();
@@ -46,9 +52,9 @@ public class ProductDetailsPage extends BasePage {
         typeInInputWithName("detail", productReview.getThoughts());
         typeInInputWithId("nickname_field", productReview.getNickname());
         typeInInputWithId("summary_field", productReview.getSummary());
-        setReviewRating(productReview.getCriteria(),productReview.getNrStars());
     }
-    public void setReviewRating(String criteria, int nrStars) {
+
+    private void setReviewRating(String criteria, int nrStars) {
         for (WebElement criteriaRow : reviewCriteriaRows) {
             if (criteriaRow.findElement(By.cssSelector("th")).getText().equalsIgnoreCase(criteria)) {
                 criteriaRow.findElement(By.cssSelector("input[id*='" + nrStars + "']")).click();
@@ -67,4 +73,7 @@ public class ProductDetailsPage extends BasePage {
        setReviewRating("VALUE", random.nextInt(5) + 1);
     }
 
+    public void clickOnSubmitReviewBtn() {
+        clickOn(submitReviewButton);
+    }
 }

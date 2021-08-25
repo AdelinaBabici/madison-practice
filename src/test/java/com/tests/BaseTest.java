@@ -1,5 +1,6 @@
 package com.tests;
 
+import com.pages.HeaderAdminPage;
 import com.pages.LoginAdminPage;
 import com.steps.*;
 import net.thucydides.core.annotations.Managed;
@@ -28,6 +29,8 @@ public class BaseTest {
     protected ProductDetailsSteps productDetailsSteps;
     @Steps
     protected LoginAdminSteps loginAdminSteps;
+    @Steps
+    protected ReviewSteps reviewSteps;
 
     @Before
     public void setup() {
