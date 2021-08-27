@@ -2,6 +2,9 @@ package com.tests;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.google.inject.Inject;
+import com.models.ProductReview;
+import com.tools.factories.ProductReviewFactory;
 import net.bytebuddy.utility.RandomString;
 import net.serenitybdd.junit.runners.SerenityRunner;
 
@@ -11,7 +14,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(SerenityRunner.class)
 public class Test003ManageProductsReviews extends BaseTest {
-
+@Inject
+private ProductReview productReview;
 
     @Before
     public void dataPrep() {
@@ -31,7 +35,8 @@ public class Test003ManageProductsReviews extends BaseTest {
         setup();
         productFlowSteps.navigateToProductDetailsPage("AVIATOR SUNGLASSES");
         productDetailsSteps.clickOnAddAReviewLink();
-        productDetailsSteps.verifyProductReview(reviewSummary);
+        productDetailsSteps.verifyReviews();
+
     }
 
     @Override

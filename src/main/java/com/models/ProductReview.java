@@ -1,11 +1,12 @@
 package com.models;
 
+import java.util.Objects;
+
 public class ProductReview {
     private String summary;
     private String thoughts;
     private String nickname;
-    private String criteria;
-    private int nrStars;
+
 
     public ProductReview() {
     }
@@ -25,7 +26,7 @@ public class ProductReview {
     public void setThoughts(String thoughts) {
         this.thoughts = thoughts;
     }
-
+//
     public String getNickname() {
         return nickname;
     }
@@ -34,32 +35,40 @@ public class ProductReview {
         this.nickname = nickname;
     }
 
-    public String getCriteria() {
-        return criteria;
-    }
+//    public String getCriteria() {
+//        return criteria;
+//    }
+//
+//    public void setCriteria(String criteria) {
+//        this.criteria = criteria;
+//    }
+//
+//    public int getNrStars() {
+//        return nrStars;
+//    }
+//
+//    public void setNrStars(int nrStars) {
+//        this.nrStars = nrStars;
+//    }
 
-    public void setCriteria(String criteria) {
-        this.criteria = criteria;
-    }
-
-    public int getNrStars() {
-        return nrStars;
-    }
-
-    public void setNrStars(int nrStars) {
-        this.nrStars = nrStars;
-    }
+//    @Override
+//    public String toString() {
+//        return "ProductReview{" +
+//                "summary='" + summary + '\'' +
+//                ", thoughts='" + thoughts + '\'' +
+//                ", nickname='" + nickname + '\'' +
+//                '}';
+//    }
 
     @Override
     public String toString() {
         return "ProductReview{" +
                 "summary='" + summary + '\'' +
                 ", thoughts='" + thoughts + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", criteria='" + criteria + '\'' +
-                ", nrStars=" + nrStars +
                 '}';
     }
-    //TODO define the rest of the fields
+
+
+//TODO define the rest of the fields
 
 }

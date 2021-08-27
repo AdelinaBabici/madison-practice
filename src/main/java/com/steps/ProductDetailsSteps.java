@@ -1,6 +1,5 @@
 package com.steps;
 
-import com.tools.utils.SerenitySessionUtils;
 import net.thucydides.core.annotations.Step;
 
 import com.dao.product.ProductAbstractDao;
@@ -10,8 +9,10 @@ import com.models.Product;
 import com.models.ProductReview;
 import com.pages.ProductDetailsPage;
 import com.tools.constants.SerenityKeyConstants;
-import com.tools.factories.ProductReviewFactory;
 import org.junit.Assert;
+
+import java.sql.SQLOutput;
+import java.util.List;
 
 public class ProductDetailsSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
@@ -65,13 +66,25 @@ public class ProductDetailsSteps extends AbstractSteps {
     }
 
     @Step
+    public void verifyReviews(){
+        List<ProductReview> reviews = productReviewDao.getAllReviews();
+        System.out.println(reviews.toString());
+        for(ProductReview review:reviews){
+            System.out.println(review.toString());
+            verifyProductReview(review.getSummary());
+            System.out.println(review.toString());
+        }
+
+    }
+
+    @Step
     public void verifyProductReview(String summary) {
-      //  Product review  productReviewDao.getProductReviewBySummary()
 
        ProductReview expectedReview = productReviewDao.getReviewBySummary(summary);
-       ProductReview actualReview = page.getReviewDetails(summary);
-        System.out.println("Expected review is: " + expectedReview.toString());
-        System.out.println("Actual review is: " + actualReview.toString());
+        System.out.println("ZZZZ " + expectedReview);
+       ProductReview actualReview = productDetailsPage.getReviewDetails(summary);
+        System.out.println("Expected review is: " + expectedReview);
+        System.out.println("Actual review is: " + actualReview);
         Assert.assertTrue("Review is not as expected!", expectedReview.equals(actualReview));
 
     }

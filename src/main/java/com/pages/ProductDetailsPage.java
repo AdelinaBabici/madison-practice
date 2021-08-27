@@ -22,6 +22,11 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(css = "button[title='Submit Review'")
     private WebElementFacade submitReviewButton;
 
+    @FindBy(xpath = "//*[@id='customer-reviews']/dl/dt[1]")
+    private WebElementFacade reviewSummary;
+
+
+
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
     }
@@ -50,7 +55,7 @@ public class ProductDetailsPage extends BasePage {
 
     public void fillReviewDetails(ProductReview productReview){
         typeInInputWithName("detail", productReview.getThoughts());
-        typeInInputWithId("nickname_field", productReview.getNickname());
+//        typeInInputWithId("nickname_field", productReview.getNickname());
         typeInInputWithId("summary_field", productReview.getSummary());
     }
 
@@ -76,4 +81,36 @@ public class ProductDetailsPage extends BasePage {
     public void clickOnSubmitReviewBtn() {
         clickOn(submitReviewButton);
     }
+
+    public ProductReview getReviewDetails(String summary) {
+        ProductReview review = new ProductReview();
+
+         WebElement reviewDTSection = getReviewSection(summary);
+         review.setSummary(reviewDTSection.getText());
+        System.out.println("sasdasd" + reviewDTSection.getText());
+         WebElement reviewDDSection = reviewDTSection.findElement(By.xpath("//*[@id='customer-reviews']/dl/dd[1]"));
+
+
+         review.setThoughts(reviewDDSection.getText());
+        System.out.println("sasdasd" + reviewDDSection.getText());
+//         WebElement nickname = reviewDDSection.findElement(By.xpath("//*[@id='customer-reviews']/dl/dd[1]/span"));
+//         review.setNickname(nickname.getText());
+//        System.out.println("ssssss" + nickname);
+
+         return review;
+
+    }
+   WebElement getReviewSection(String summary){
+       List<WebElement> reviews = getDriver().findElements(By.cssSelector("dl dt"));
+       System.out.println(reviews.size());
+       for(WebElement elem:reviews){
+           System.out.println(elem.getText());
+           if(elem.getText().equalsIgnoreCase(summary)){
+               return elem;
+           }
+
+       }
+       return null;
+   }
+
 }
